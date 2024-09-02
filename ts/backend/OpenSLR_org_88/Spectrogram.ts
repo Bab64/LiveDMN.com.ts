@@ -10,7 +10,7 @@ export default class Spectrogram {
         // console.info(file_name + " 'audio_data.sampleRate': " + audio_data.sampleRate // '44100', i.e., 44.1 kHz
         //     + " 'audio_data.channelData.length': " + audio_data.channelData.length);
         // for (let i = 0; i < audio_data.channelData.length; i++)
-        //     console.log("\t" + audio_data.channelData[i].length); // 'Float32Array' object...
+        //     console.log("\t" + audio_data.channelData[i].constructor.name + " with length " + audio_data.channelData[i].length); // 'Float32Array' object...
         console.assert(audio_data.channelData.length === 1, "'audio_data.channelData.length === 1', untrue");
         return audio_data.channelData[0];
     }

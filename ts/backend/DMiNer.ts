@@ -31,8 +31,6 @@ import {
     Status_mode
 } from "../common/Settings";
 
-// Datasets: Kaggle.com, OpenML.org...
-
 export enum Compression {
     GZ = 'gz',
     GZIP = 'gzip',

@@ -3,7 +3,7 @@
   "description": "DMN executor",
   "license": "All rights reserved",
   "main": "dist/frontend/Main.js",
-  "name": "LiveDMN",
+  "name": "LiveDMN.com",
   "version": "1.0.0",
   "scripts": {
     "backend": "node dist/backend/Main.js",
@@ -40,6 +40,7 @@
     "@types/dat.gui": "^0.7.13",
     "@types/koa": "^2.15.0",
     "@types/node": "^18.19.44",
+    "@types/node-wav": "^0.0.3",
     "css-loader": "^6.11.0",
     "rimraf": "^5.0.10",
     "style-loader": "^3.3.4",

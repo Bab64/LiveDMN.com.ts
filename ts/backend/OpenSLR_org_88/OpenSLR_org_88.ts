@@ -20,10 +20,28 @@ export enum Social_attitude {
 }
 
 export default class OpenSLR_org_88 { // https://gitlab.com/nicolasobin/att-hack
-    private static _Test_data = [
-        path.join(path.resolve(__dirname, '../../DATA/gitlab.com_nicolasobin_att-hack/'), "F01_a1_s008_v01.wav"),
-        path.join(path.resolve(__dirname, '../../DATA/gitlab.com_nicolasobin_att-hack/'), "F08_a4_s015_v03.wav"),
-        path.join(path.resolve(__dirname, '../../DATA/gitlab.com_nicolasobin_att-hack/'), "F08_a4_s039_v04.wav")
+    private static _Test_model(): tf.Sequential {
+        // P. 128 du bouquin 'TensorFlow.js' :
+        const model = tf.sequential();
+        model.add(tf.layers.conv2d({ // https://js.tensorflow.org/api/latest/#layers.dense
+            activation: 'relu',
+            /** IMPORTANT: the first layer in the model needs 'inputShape'. Make sure excluding batch size when providing 'inputShape'.
+             * For example, if you plan to feed the model tensors of shape '[BS, 3, 3]', where 'BS' can be any batch size,
+             * then specify 'inputShape' as '[3, 3]':
+             */
+            filters: 16,
+            inputShape: [8, 8],
+            kernelSize: 3,
+            name: "A"
+        }));
+        return model;
+    }
+
+
+    private static readonly Test_data = [
+        path.join(path.resolve(__dirname, '../../../DATA/gitlab.com_nicolasobin_att-hack/'), "F01_a1_s008_v01.wav"),
+        path.join(path.resolve(__dirname, '../../../DATA/gitlab.com_nicolasobin_att-hack/'), "F08_a4_s015_v03.wav"),
+        path.join(path.resolve(__dirname, '../../../DATA/gitlab.com_nicolasobin_att-hack/'), "F08_a4_s039_v04.wav")
     ];
     private readonly data: tf.Tensor4D;
 //https://js.tensorflow.org/api/latest/#signal.stft
@@ -34,18 +52,32 @@ export default class OpenSLR_org_88 { // https://gitlab.com/nicolasobin/att-hack
     //tf.image.resizeBilinear
 
     // https://github.com/tensorflow/tfjs-models/blob/master/speech-commands/README.md
-    static X() {
-        let audio_file = path.join(path.resolve(__dirname, '../../DATA/gitlab.com_nicolasobin_att-hack/'), "F01_a1_s008_v01.wav");
-        Spectrogram.Load(audio_file);
-        audio_file = path.join(path.resolve(__dirname, '../../DATA/gitlab.com_nicolasobin_att-hack/'), "F08_a4_s015_v03.wav");
-        Spectrogram.Load(audio_file);
-        audio_file = path.join(path.resolve(__dirname, '../../DATA/gitlab.com_nicolasobin_att-hack/'), "F08_a4_s039_v04.wav");
-        Spectrogram.Load(audio_file);
+    static Test() {
+        const datum0 = Spectrogram.Load(OpenSLR_org_88.Test_data[0]); // length 70912
+        const datum1 = Spectrogram.Load(OpenSLR_org_88.Test_data[1]); // length 88448
+        const datum2 = Spectrogram.Load(OpenSLR_org_88.Test_data[2]); // length 107008
+        // Resampling: https://github.com/aolsenjazz/libsamplerate-js
         // - The first dimension (null) is an undetermined batch dimension...
         // - The second dimension (e.g., 43) is the number of audio frames.
         // - The third dimension (e.g., 232) is the number of frequency data points in every frame (i.e., column) of the spectrogram
         // - The last dimension (e.g., 1) is fixed at 1. This follows the convention of convolutional neural networks in TensorFlow.js and Keras.
-        return tf.tensor4d(Spectrogram.Load(audio_file), [null, 28, 28, 1]);
+
+
+        // const r = tf.tensor3d(datum0, [60,60,8]);
+        // console.info("Rank: " + r.rank + ", shape: " + r.shape);
+         //    const z= tf.image.resizeBilinear(datum0, [60,60]);
+         // console.info("Rank: " + z.rank + ", shape: " + z.shape);
+
+        //  const x = tf.tensor(datum0);//
+        // const rr=x.reshape([2, 2]);
+       //  console.info("x Rank: " + rr.rank + ", x shape: " +rr.shape);
+        // La
+        const tensor = tf.tensor([datum2, datum1, datum0]);
+        console.info("Rank: " + tensor.rank + ", shape: " + tensor.shape); // Rank: 2, shape: 3,107008
+        const a=tensor.arraySync();
+
+
+        // return tf.tensor4d(datum0, [null, 28, 28, 1]);
     }
 
     static readonly Archive_file_name = "OpenSLR_org_88";

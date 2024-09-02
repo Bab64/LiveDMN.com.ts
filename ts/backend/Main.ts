@@ -5,6 +5,7 @@ import path from "node:path";
 
 (function Main() {
     console.clear();
+    console.info("Working directory: " + __dirname + "\n");
     console.info("Executable file: " + __filename + "\n");
     console.info("Version of TensorFlow.js (C++ native Node.js): " + version["tfjs-core"] + "\n");
 
@@ -14,12 +15,12 @@ import path from "node:path";
     /** End of CSV */
 
     DMiNer.Get_DMN().then(() => {
-        //DMiNer.Test_TensorFlow_js_API();
+        // DMiNer.Test_TensorFlow_js_API();
     }); // Default example...
 
-    OpenSLR_org_88.Data().then(_ => console.info("'Data' done..."));
+    // OpenSLR_org_88.Data().then(_ => console.info("'Data' done..."));
 
-
+    OpenSLR_org_88.Test();
 })();
 
 
