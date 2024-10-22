@@ -74,21 +74,4 @@ export default class Dataviz {
             throw new Error(DMiNer_error.No_possible_visualization);
         }
     }
-
-    private readonly _XML: Promise<string>;
-    get XML() {
-        return this._XML;
-    }
-
-    private async _load_XML(XML: string): Promise<string> {
-        const response: Response = await window.fetch(XML);
-        return response.text();
-    }
-
-    constructor(readonly source: string, private readonly _viewer: any, private readonly _dat_gui: any, readonly is_XML = false) {
-        if (is_XML)
-            this._XML = Promise.resolve(source);
-        else
-            this._XML = this._load_XML(source);
-    }
 }
