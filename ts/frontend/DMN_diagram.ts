@@ -434,6 +434,9 @@ export default class DMN_diagram {
                                 await decision_maker.train(DMN_diagram._To_TensorFlow_data(Drop_mode.TRAIN, decision, data.data));
                             }
                             break;
+                        case Drop_mode.VISUALIZE:
+                            window.alert("Drag & drop fichier JSON avec action 'VISUALIZE'");
+                            break;
                         default:
                             throw new DMiNer_error(decision, DMiNer_error.Invalid_drop_mode, data.action);
                     }

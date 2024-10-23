@@ -56,6 +56,13 @@ strong {
     stroke-dashoffset: 100;
 }
 
+.VISUALIZE:not(.djs-connection) .djs-visual > :nth-child(1) {
+    animation: blinking 1s ease-out infinite;
+    /* '!important' overrides *ALL* previous styling rules: */
+    fill: lightyellow !important;
+    stroke: yellow !important;
+}
+
 .TRAINED:not(.djs-connection) .djs-visual > :nth-child(1) {
     /* '!important' overrides *ALL* previous styling rules: */
     fill: lightyellow !important;

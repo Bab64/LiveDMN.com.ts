@@ -5,7 +5,8 @@ export const Trace = true; // 'false' in production mode...
 export enum Drop_mode {
     FEEL = "FEEL",
     PREDICT = "PREDICT",
-    TRAIN = "TRAIN"
+    TRAIN = "TRAIN",
+    VISUALIZE = "VISUALIZE"
 }
 
 export enum State_mode {
